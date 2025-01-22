@@ -6,10 +6,10 @@ import 'package:facturacion/data/token.dart';
 import 'package:http/http.dart' as http;
 
 class BillService {
-  //final _storageService = StorageService();
   final listUri = Uri.parse(
       'https://api-sandbox.factus.com.co/v1/bills?filter[names]=Marvin Cerdas');
-  final ulri = Uri.parse('https://api-sandbox.factus.com.co/v1/bills/validate');
+  final validUri =
+      Uri.parse('https://api-sandbox.factus.com.co/v1/bills/validate');
   final ulritest = Uri.parse(
       'https://api-sandbox.factus.com.co/v1/bills/validate/name/test');
   String viewkUri = 'https://api-sandbox.factus.com.co/v1/bills/show/';
@@ -70,27 +70,33 @@ class BillService {
   }
 
   Future<bool> createBill(BillRequest billRequest, String token) async {
-    final response = await http.post(ulritest,
-        headers: <String, String>{
-          'Authorization': 'Bearer $token',
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode(<String, dynamic>{
-          "document": billRequest.document,
-          "numbering_range_id": billRequest.numberingRangeId,
-          "reference_code": billRequest.referenceCode,
-          "observation": billRequest.observation,
-          "payment_method_code": billRequest.paymentMethodCode,
-          "customer": billRequest.customer.toJson(),
-          "items": billRequest.items.map((item) => item.toJson()).toList(),
-        }));
+    final requestHeader = <String, String>{
+      'Authorization': 'Bearer $token',
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    };
+    final requestBody = jsonEncode(<String, dynamic>{
+      "document": billRequest.document,
+      "numbering_range_id": billRequest.numberingRangeId,
+      "reference_code": billRequest.referenceCode,
+      "observation": billRequest.observation,
+      "payment_method_code": billRequest.paymentMethodCode,
+      "customer": billRequest.customer.toJson(),
+      "items": billRequest.items.map((item) => item.toJson()).toList(),
+    });
+    print(requestBody);
+    final response =
+        await http.post(validUri, headers: requestHeader, body: requestBody);
 
     if (response.statusCode == 201) {
       return true;
-    } else {
-      return false;
-      //throw Exception('Error Creando la factura: ${response.body}');
+    } else if ((response.statusCode == 409)) {
+      print("Error 409 al crear la factura: => ${response.body}");
+    } else if ((response.statusCode == 422)) {
+      print("Error 422 en los datos de la factura: => ${response.body}");
+    } else if ((response.statusCode == 404)) {
+      print("Ruta no valida: => ${response.body}");
     }
+    return false;
   }
 }

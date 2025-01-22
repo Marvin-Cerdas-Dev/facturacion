@@ -1,6 +1,5 @@
 import 'package:facturacion/data/legal_organization.dart';
 import 'package:facturacion/data/municipality.dart';
-import 'package:facturacion/data/tables.dart';
 import 'package:facturacion/data/tributes.dart';
 
 class Customer {
@@ -60,9 +59,9 @@ class Customer {
         "address": address,
         "email": email,
         "phone": phone,
-        "legal_organization": legalOrganization.code,
-        "tribute": tribute.code,
+        "legal_organization_id": legalOrganization.code,
+        "tribute_id": tribute.code,
         "identification_document_id": identificationDocumentId,
-        "municipality": municipality.id,
+        "municipality": municipality.code,
       };
 }

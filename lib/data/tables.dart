@@ -7,6 +7,11 @@ class TableEntry {
 
   String get getCode => code;
   String get getDescription => description;
+
+  Map<String, dynamic> toJson() => {
+        "code": code,
+        "description": description,
+      };
 }
 
 // Clase para manejar las tablas de referencia

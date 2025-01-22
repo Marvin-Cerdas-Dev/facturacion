@@ -80,15 +80,15 @@ class Item {
       "discount_rate": discountRate,
       "price": price,
       "tax_rate": taxRate,
-      "unit_measure": unitMeasure.code,
+      "unit_measure_id": unitMeasure.id,
       "gross_value": grossValue,
       "taxable_amount": taxableAmount,
       "tax_amount": taxAmount,
       "is_excluded": isExcluded,
-      "standard_code": standardCode,
-      "tribute": tribute.code,
+      "standard_code_id": int.parse(standardCode.code),
+      "tribute_id": tribute.id,
       "total": total,
-      "withholding_taxes": '[]',
+      "withholding_taxes": withholdingTaxes.map((tax) => tax.toJson()).toList(),
     };
   }
 }

@@ -1,12 +1,12 @@
 import 'package:facturacion/data/bill.dart';
+import 'package:facturacion/data/token.dart';
 import 'package:facturacion/screens/bill_details_screen.dart';
+import 'package:facturacion/services/auth_service.dart';
+import 'package:facturacion/services/bill_service.dart';
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class BillListWidget extends StatefulWidget {
-  BillListWidget({super.key, required this.bills});
-
-  late Future<List<Bill>> bills;
+  const BillListWidget({super.key});
 
   @override
   State<StatefulWidget> createState() => _BillListWidgetState();
@@ -14,11 +14,22 @@ class BillListWidget extends StatefulWidget {
 
 class _BillListWidgetState extends State<BillListWidget> {
   late Future<List<Bill>> _bills;
+  late Future<Token> _token;
 
   @override
   void initState() {
     super.initState();
-    _bills = widget.bills;
+    _setToken();
+    _setBillList();
+  }
+
+  void _setToken() async {
+    _token = AuthService().getToken();
+  }
+
+  Future<List<Bill>> _setBillList() async {
+    _bills = BillService().getBills(_token);
+    return _bills;
   }
 
   void _showBillDetailsScreen(Bill bill) {
@@ -36,7 +47,7 @@ class _BillListWidgetState extends State<BillListWidget> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: _bills,
+      future: _setBillList(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Column(

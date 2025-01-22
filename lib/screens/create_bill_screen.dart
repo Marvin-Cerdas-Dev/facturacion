@@ -89,40 +89,55 @@ class _CreateBillScreenState extends State<CreateBillScreen> {
     }
 
     void createBill() async {
-      int random = Random().nextInt(99);
-      final lOrganization = LegalOrganization();
-      final tributeList = await _tributes;
-      final tribute = tributeList.firstWhere((element) {
-        return element.id == int.parse(tributeId);
-      });
-      final municipalityList = await _municipalities;
-      final muni = municipalityList.firstWhere((element) {
-        return element.id == int.parse(municipalityId);
-      });
-      final token = await _token;
-      Customer newCustomer = Customer(
-        identification: custumerId,
-        names: custumerName,
-        address: custumerAddress,
-        email: custumerEmail,
-        phone: custumerPhone,
-        legalOrganization: lOrganization,
-        tribute: tribute,
-        municipality: muni,
-        identificationDocumentId: customerIdentificationDocumentCode,
-        company: custumerCompany,
-        
-      );
-      BillRequest request = BillRequest(
-        document: documentTypeCode,
-        numberingRangeId: numberRangeCode,
-        referenceCode: "fact00450$random",
-        observation: observation,
-        paymentMethodCode: paymentMethodCode,
-        customer: newCustomer,
-        items: billProducts,
-      );
-      requestAnswer = await BillService().createBill(request, token.access_token);
+      try {
+        int random = Random().nextInt(99);
+        final lOrganization = LegalOrganization();
+        final tributeList = await _tributes;
+        final tribute = tributeList.firstWhere((element) {
+          return element.id == int.parse(tributeId);
+        });
+        final municipalityList = await _municipalities;
+        final muni = municipalityList.firstWhere((element) {
+          return element.id == int.parse(municipalityId);
+        });
+        final token = await _token;
+        Customer newCustomer = Customer(
+          identification: custumerId,
+          names: custumerName,
+          address: custumerAddress,
+          email: custumerEmail,
+          phone: custumerPhone,
+          legalOrganization: lOrganization,
+          tribute: tribute,
+          municipality: muni,
+          identificationDocumentId: customerIdentificationDocumentCode,
+          company: custumerCompany,
+        );
+        BillRequest request = BillRequest(
+          document: documentTypeCode,
+          numberingRangeId: numberRangeCode,
+          referenceCode: "fact00450$random",
+          observation: observation,
+          paymentMethodCode: paymentMethodCode,
+          customer: newCustomer,
+          items: billProducts,
+        );
+        requestAnswer =
+            await BillService().createBill(request, token.access_token);
+        if(requestAnswer == false){
+          // Mensaje de error.
+        }
+        if (mounted && requestAnswer) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Formulario válido')),
+          );
+          setState(() {
+            Navigator.pop(context, requestAnswer);
+          });
+        }
+      } catch (e) {
+        print('Error al crear la factura: -> $e');
+      }
     }
 
     return Scaffold(
@@ -587,9 +602,6 @@ class _CreateBillScreenState extends State<CreateBillScreen> {
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
                                 createBill();
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text('Formulario válido')),
-                                );
                               }
                             },
                             child: Text('Crear y validar la factura'),
