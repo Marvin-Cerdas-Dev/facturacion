@@ -15,7 +15,7 @@ class Customer {
   LegalOrganization legalOrganization;
   Tribute tribute;
   String? identificationDocumentId;
-  Municipality municipality;
+  dynamic municipality;
 
   Customer({
     this.identification = '',
@@ -48,7 +48,11 @@ class Customer {
         legalOrganization:
             LegalOrganization.fromJson(json["legal_organization"]),
         tribute: Tribute.fromJson(json["tribute"]),
-        municipality: Municipality.fromJson(json["municipality"]),
+        municipality: json["municipality"] is Map
+            ? Municipality.fromJson(json["municipality"])
+            : (json["municipality"] is List && json["municipality"].isNotEmpty
+                ? Municipality.fromJson(json["municipality"][0])
+                : null),
       );
 
   Map<String, dynamic> toJson() => {

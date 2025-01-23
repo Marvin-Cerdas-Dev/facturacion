@@ -1,18 +1,25 @@
 import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
 import 'package:facturacion/data/bill.dart';
 import 'package:facturacion/data/bill_details.dart';
 import 'package:facturacion/data/bill_request.dart';
 import 'package:facturacion/data/token.dart';
 import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
+import 'package:open_file/open_file.dart';
 
 class BillService {
+  // Uri for request biill list
   final listUri = Uri.parse(
       'https://api-sandbox.factus.com.co/v1/bills?filter[names]=Marvin Cerdas');
+  // Uri for create and validate a Bill
   final validUri =
       Uri.parse('https://api-sandbox.factus.com.co/v1/bills/validate');
-  final ulritest = Uri.parse(
-      'https://api-sandbox.factus.com.co/v1/bills/validate/name/test');
+  // Base Uri for view the details of a Bill.
   String viewkUri = 'https://api-sandbox.factus.com.co/v1/bills/show/';
+  // Base Uri to request a PDF
+  String pdfUri = 'https://api-sandbox.factus.com.co/v1/bills/download-pdf/';
 
   Future<List<Bill>> fetchBillList(String token) async {
     final response = await http.get(listUri, headers: <String, String>{
@@ -52,6 +59,49 @@ class BillService {
       return BillDetails.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Error consultando Bill por número: ${response.body}');
+    }
+  }
+
+  Future<String> fetchBillPDF(String token, String number) async {
+    final url = Uri.parse('$pdfUri$number');
+    final response = await http.get(url, headers: <String, String>{
+      'Authorization': 'Bearer $token',
+      'Accept': 'application/json'
+    });
+
+    if (response.statusCode == 200) {
+      return response.body;
+    } else {
+      throw Exception('Error consultando por el PDF: ${response.body}');
+    }
+  }
+
+  Future<void> getPDF(Future<Token> token, String billNumber) async {
+    final loadedToken = await token;
+    String pdfResponse;
+
+    try {
+      pdfResponse = await fetchBillPDF(loadedToken.acessToken, billNumber);
+      final Map<String, dynamic> jsonResponse = json.decode(pdfResponse);
+      final String base64Pdf = jsonResponse['data']['pdf_base_64_encoded'];
+      final String fileName = jsonResponse['data']['file_name'];
+
+      // Decodificar el contenido Base64
+      final Uint8List bytes = base64.decode(base64Pdf);
+
+      final Directory directory = await getApplicationDocumentsDirectory();
+      final String filePath = '${directory.path}/$fileName.pdf';
+
+      // Escribir el archivo
+      final File file = File(filePath);
+      await file.writeAsBytes(bytes);
+
+      // Abrir el archivo
+      final result = await OpenFile.open(filePath);
+      print('Resultado de abrir el archivo: $result');
+      await OpenFile.open(filePath);
+    } catch (e) {
+      print('Error al crear el PDF: $e');
     }
   }
 

@@ -109,7 +109,7 @@ class _BillListWidgetState extends State<BillListWidget> {
                             ],
                           ),
                           SizedBox(
-                            width: 100,
+                            width: 90,
                           ),
                           Icon(Icons.arrow_forward_outlined),
                         ],

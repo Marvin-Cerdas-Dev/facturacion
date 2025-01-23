@@ -215,7 +215,7 @@ class _AddProductsScreenState extends State<AddProductsScreen> {
                             ],
                           ),
                           SizedBox(
-                            width: 80,
+                            width: 60,
                           ),
                           Text(
                             items.total.toString(),

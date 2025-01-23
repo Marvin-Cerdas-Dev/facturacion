@@ -39,12 +39,22 @@ class _BillDetailsState extends State<BillDetailsScreen> {
     _billDetails = BillService().getBillByNumber(_token, _bill.number);
   }
 
+  void _downloadPDFFile() async {
+    BillService().getPDF(_token, _bill.number);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text('Detalles de factura'),
+        actions: [
+          IconButton(
+            onPressed: _downloadPDFFile,
+            icon: Icon(Icons.download),
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(15.0),

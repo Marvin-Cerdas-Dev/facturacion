@@ -159,10 +159,6 @@ class _BillDetailsWidgetState extends State<BillDetailsWidget> {
                             ),
                           ],
                         ),
-                        SizedBox(
-                          width: 100,
-                        ),
-                        Icon(Icons.arrow_forward_outlined),
                       ],
                     ),
                   ),
