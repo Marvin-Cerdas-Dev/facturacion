@@ -12,7 +12,7 @@ import 'package:open_file/open_file.dart';
 class BillService {
   // Uri for request biill list
   final listUri = Uri.parse(
-      'https://api-sandbox.factus.com.co/v1/bills?filter[names]=Marvin Cerdas');
+      'https://api-sandbox.factus.com.co/v1/bills');
   // Uri for create and validate a Bill
   final validUri =
       Uri.parse('https://api-sandbox.factus.com.co/v1/bills/validate');

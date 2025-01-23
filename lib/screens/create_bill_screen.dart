@@ -121,14 +121,13 @@ class _CreateBillScreenState extends State<CreateBillScreen> {
           customer: newCustomer,
           items: billProducts,
         );
+
         requestAnswer =
             await BillService().createBill(request, token.access_token);
-        if (requestAnswer == false) {
-          // Mensaje de error.
-        }
+
         if (mounted && requestAnswer) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Formulario válido')),
+            SnackBar(content: Text('Se creo la factura con éxito')),
           );
           setState(() {
             Navigator.pop(context, requestAnswer);
@@ -185,19 +184,27 @@ class _CreateBillScreenState extends State<CreateBillScreen> {
                         ),
                         // Tipo de documento
                         DropdownButtonFormField<String>(
+                          isExpanded: true,
                           decoration: InputDecoration(
                             labelText: 'Tipo de documento',
                             border: OutlineInputBorder(),
                           ),
                           items: documentTypes
-                              .map((entry) => DropdownMenuItem(
+                              .map(
+                                (entry) => DropdownMenuItem(
                                   value: entry.code,
-                                  child: Text(entry.description)))
+                                  child: Text(
+                                    entry.description,
+                                    overflow: TextOverflow.visible,
+                                  ),
+                                ),
+                              )
                               .toList(),
                           onChanged: (value) {
                             documentTypeCode = value;
                             //print('Document Type Seleccionado: $value');
                           },
+                          value: documentTypeCode,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Por favor, seleccione una opción';
