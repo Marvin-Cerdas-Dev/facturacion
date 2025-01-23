@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:facturacion/data/bill.dart';
 import 'package:facturacion/data/bill_request.dart';
 import 'package:facturacion/data/customer.dart';
 import 'package:facturacion/data/item.dart';
@@ -75,7 +74,7 @@ class _CreateBillScreenState extends State<CreateBillScreen> {
     String? custumerEmail;
     String? custumerPhone;
 
-    void _showAddProductsScreen() async {
+    void showAddProductsScreen() async {
       final List<Item>? result =
           await Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => AddProductsScreen(
@@ -124,7 +123,7 @@ class _CreateBillScreenState extends State<CreateBillScreen> {
         );
         requestAnswer =
             await BillService().createBill(request, token.access_token);
-        if(requestAnswer == false){
+        if (requestAnswer == false) {
           // Mensaje de error.
         }
         if (mounted && requestAnswer) {
@@ -570,7 +569,7 @@ class _CreateBillScreenState extends State<CreateBillScreen> {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8)),
                             ),
-                            onPressed: _showAddProductsScreen,
+                            onPressed: showAddProductsScreen,
                             child: billProducts.isEmpty
                                 ? Text('Agregar productos')
                                 : Text('Agregar o editar productos'),

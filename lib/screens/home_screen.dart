@@ -1,7 +1,5 @@
-import 'package:facturacion/data/bill.dart';
 import 'package:facturacion/widget/bill_list_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:facturacion/data/token.dart';
 import 'package:facturacion/screens/create_bill_screen.dart';
 
 class HomePage extends StatefulWidget {
@@ -12,11 +10,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
-
   void _showCreateBillScreen() async {
-    final request = await Navigator.of(context)
+    await Navigator.of(context)
         .push(MaterialPageRoute(builder: (context) => CreateBillScreen()));
+    setState(() {});
   }
 
   @override
