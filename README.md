@@ -6,15 +6,14 @@ Welcome to the **Electronic Invoicing Solution for Halltec Challenge solution fo
 
 ## 📋 Table of Contents
 
-1. [Project Overview](#project-overview)
-2. [Requirements](#requirements)
-3. [Installation](#installation)
-4. [Project Structure](#project-structure)
-5. [Features and Functionalities](#features-and-functionalities)
-6. [Running the Application](#running-the-application)
-7. [Dependencies](#dependencies)
-8. [License](#license)
-9. [Contact](#contact)
+1. [Project Overview](#-project-overview)
+2. [Requirements](#-requirements)
+3. [Installation](#-installation)
+4. [Project Structure](#-project-structure)
+5. [Features and Functionalities](#-features-and-functionalities)
+6. [Running the Application](#-running-the-application)
+7. [License](#-license)
+8. [Contact](#-contact)
 
 ---
 
