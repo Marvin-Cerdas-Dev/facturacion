@@ -37,6 +37,7 @@ The **Electronic Invoicing Solution** is a Flutter application that interacts wi
    ```bash
    git clone https://github.com/Marvin-Cerdas-Dev/facturacion.git
    cd facturacion
+   ```.
   
 2. **Open the project and add the dependencies**:
  ```bash
@@ -47,17 +48,19 @@ The **Electronic Invoicing Solution** is a Flutter application that interacts wi
    flutter pub add path_provider
    flutter pub add open_file
    flutter pub add permission_handler
+ ```.
 
 3. **Clone the repository**:
    ```bash
    flutter pub get
+ ```.
 
 ---
 
 ## 📁 Project Structure
 
 The project is structured as follows:
-```
+```.
 facturacion/ 
 ├── android/ # Native Android code 
 ├── ios/ # Native iOS code 
@@ -102,6 +105,7 @@ facturacion/
 │    └── main.dart # Application entry point 
 ├── pubspec.yaml # Project dependencies and metadata 
 └── README.md # Documentation
+```.
 
 ---
 
@@ -124,7 +128,7 @@ The application provides the following key features:
 To run the application, ensure you have a physical device or emulator connected. Then execute the following command:
    ```bash
    flutter run
-
+   ```.
 ---
 
 ## 📜 License
