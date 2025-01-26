@@ -48,19 +48,19 @@ The **Electronic Invoicing Solution** is a Flutter application that interacts wi
    flutter pub add path_provider
    flutter pub add open_file
    flutter pub add permission_handler
- ```.
+ ```
 
 3. **Clone the repository**:
    ```bash
    flutter pub get
- ```.
+    ```
 
 ---
 
 ## 📁 Project Structure
 
 The project is structured as follows:
-```.
+```
 facturacion/ 
 ├── android/ # Native Android code 
 ├── ios/ # Native iOS code 
@@ -105,7 +105,7 @@ facturacion/
 │    └── main.dart # Application entry point 
 ├── pubspec.yaml # Project dependencies and metadata 
 └── README.md # Documentation
-```.
+```
 
 ---
 
@@ -113,11 +113,11 @@ facturacion/
 
 The application provides the following key features:
 
-    Invoice Management:
+   Invoice Management:
         Create, validate, and send electronic invoices via the Factus API.
         Download invoices in PDF format for easy access and sharing.
 
-    User-Friendly Interface:
+   User-Friendly Interface:
         Simplified navigation for an enhanced user experience.
         QR code generation for quick and easy invoice confirmation in the regulatory organization (DIAN).
 
@@ -128,7 +128,7 @@ The application provides the following key features:
 To run the application, ensure you have a physical device or emulator connected. Then execute the following command:
    ```bash
    flutter run
-   ```.
+   ```
 ---
 
 ## 📜 License
@@ -141,4 +141,4 @@ This project is licensed under the MIT License. Feel free to use, modify, and di
 
 Developed by Marvin Cerdas. For questions, feedback, or support, feel free to reach out:
 
-    Marvin Cerdas - [GitHub Profile](https://github.com/Marvin-Cerdas-Dev)
+ Marvin Cerdas - [GitHub Profile](https://github.com/Marvin-Cerdas-Dev)
