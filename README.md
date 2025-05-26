@@ -1,5 +1,10 @@
 # 🧾 Electronic Invoicing Solution
 
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/Marvin-Cerdas-Dev/facturacion)
+[![GitHub issues](https://img.shields.io/github/issues/tu-usuario/tu-repo)](https://github.com/tu-usuario/tu-repo/issues)
+[![GitHub stars](https://img.shields.io/github/stars/tu-usuario/tu-repo)](https://github.com/tu-usuario/tu-repo/stargazers)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 Welcome to the **Electronic Invoicing Solution for Halltec Challenge solution for Factus API implementation.**, a Flutter-based application designed to integrate with the [Factus API](https://developers.factus.com.co/) for generating electronic invoices in Colombia. This basic Android app offers invoice management functionalities such as listing, viewing, and downloading invoices in PDF format. It also provides a feature to create, validate, and manage electronic invoices in compliance with DIAN regulations, including invoices with pre-defined products. This is a prototype and not intended for production environments.
 
 ---
